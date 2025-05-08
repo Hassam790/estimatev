@@ -4,6 +4,9 @@ import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class UsersService {
+    // The constructor takes a repository of type User
+    // The repository is injected using the @InjectRepository decorator
+    // The repository is used to interact with the database
     constructor(@InjectRepository(User) private repo: Repository<User>) {}
     create({email, password}: {email: string, password: string}) {
         // Create a new instance of the User entity
