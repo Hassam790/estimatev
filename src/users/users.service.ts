@@ -16,12 +16,27 @@ export class UsersService {
         const userEntityInstance = this.repo.create({email, password});
         // The save method saves the entity to the database
         // and returns the saved entity
-        // The save method also returns a promise
-        // that resolves to the saved entity
-        // The save method also handles the case where the entity already exists
-        // in the database and updates it instead of creating a new one
-        // The save method also handles the case where the entity is not valid
-        // and throws an error if the entity is not valid
+        
         return this.repo.save(userEntityInstance);
+    }
+    findOne(id: number) {
+        // The findOne method is used to find a single entity by its id
+        return this.repo.findOneBy({id});
+    }
+    find(email:string) {
+        // The find method is used to find entities by their email
+        return this.repo.findBy({email});
+    }
+    update(id: number, attrs: Partial<User>) {
+        // The update method is used to update an entity by its id
+        // The update method does not return the updated entity
+        // It only returns the number of affected rows
+        return this.repo.update(id, attrs);
+    }
+    remove(id: number) {
+        // The remove method is used to remove an entity by its id
+        // The remove method does not return the removed entity
+        // It only returns the number of affected rows
+        return this.repo.delete(id);
     }
 }
