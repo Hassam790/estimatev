@@ -1,8 +1,11 @@
 import { CallHandler, ClassSerializerInterceptor, ExecutionContext, NestInterceptor, UseInterceptors } from "@nestjs/common";
 import { plainToClass } from "class-transformer";
 import { Observable,map } from "rxjs";
+interface ClassConstructor {
+    new (...arg:any[]):{}
+}
 // Custom DTO
-export function Serialize(dto:any) {
+export function Serialize(dto:ClassConstructor) {
     return UseInterceptors(new SerializeInterceptor(dto))
 }
 // Custom Interceptor
