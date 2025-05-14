@@ -11,7 +11,7 @@ content-type: application/json
 GET http://localhost:3000/auth/users?email=example@gmail.com
 
 ### Get users by ID
-GET http://localhost:3000/auth/1
+GET http://localhost:3000/auth/2
 
 
 ### Update user
