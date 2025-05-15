@@ -8,9 +8,9 @@ export class AuthService {
   constructor(private usersService: UsersService) {}
   async signup(email: string, password: string) {
     //check email if already exist
-    const user = await this.usersService.find(email);
-    console.log("user", user)
-    if (user.length) {
+    const users = await this.usersService.find(email);
+    
+    if (users.length) {
       throw new BadRequestException("email in use");
     }
     // Encrypt/Hash password
@@ -22,8 +22,19 @@ export class AuthService {
     //combine salt and hash division separator(.)
     const result = salt + '.' + hash.toString('hex');
     // Create user and return user
-    return this.usersService.create({ email, password: result });
+    return await this.usersService.create({ email, password: result });
   }
 
-  signin() {}
+  async signin(email:string, password:string) {
+      const [user] = await this.usersService.find(email);
+      if(!user){
+          throw new BadRequestException("Not Found")
+      }
+     const [salt,storedHash] = user.password.split(".");
+     const hash = (await scrypt(password,salt,32)) as Buffer;
+     if(hash.toString("hex") !== storedHash){
+          throw new BadRequestException("Incorrect password")
+     }
+     return user;
+  }
 }
