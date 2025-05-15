@@ -13,16 +13,20 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { updateUserDto } from './dtos/update-user.dto';
-import { Serialize,  } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService,
+  ) {}
   @Post('signup')
   createUser(@Body() body: CreateUserDto) {
     const { email, password } = body;
-    return this.usersService.create({ email, password });
+    return this.authService.signup(email, password);
   }
 
   @Get('/users')
@@ -39,7 +43,8 @@ export class UsersController {
     return user;
   }
   @Patch('/:id')
-  updateUser(@Param('id') id: string, @Body() body: updateUserDto) {//Partial<CreateUserDto>
+  updateUser(@Param('id') id: string, @Body() body: updateUserDto) {
+    //Partial<CreateUserDto>
     return this.usersService.update(parseInt(id), body);
   }
   @Delete('/:id')

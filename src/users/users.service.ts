@@ -49,13 +49,12 @@ export class UsersService {
     // The remove method does not return the removed entity
     // It only returns the number of affected rows
     // return this.repo.delete(id);
-    const user = await  this.findOne(id);
-   if(!user){
-       throw new  NotFoundException("User not found")
-   }
-   return this.repo.remove(user);
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return this.repo.remove(user);
     // The remove method removes the entity from the database
     // and returns the removed entity
-    
   }
 }
