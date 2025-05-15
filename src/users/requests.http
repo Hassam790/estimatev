@@ -1,3 +1,6 @@
+###Current user
+GET http://localhost:3000/auth/whoami
+
 ### create user
 POST http://localhost:3000/auth/signup
 content-type: application/json
