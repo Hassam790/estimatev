@@ -20,6 +20,9 @@ export class UsersService {
     return this.repo.save(userEntityInstance);
   }
   findOne(id: number) {
+    if(!id){
+      return null
+    }
     // The findOne method is used to find a single entity by its id
     return this.repo.findOneBy({ id });
   }

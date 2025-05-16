@@ -17,22 +17,26 @@ import { updateUserDto } from './dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
+import { User } from './user.entity';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
 @Controller('auth')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
   ) {}
-  @Get("/whoami")
-  whoami(@Session() session: any) {
-       return this.usersService.findOne(session.userId)
+  @Get('/whoami')
+  whoami(@CurrentUser() user: User) {
+    return user;
   }
   @Post('signup')
-  async createUser(@Body() body: CreateUserDto, @Session() session:any) {
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const { email, password } = body;
-    const user =  this.authService.signup(email, password);
+    const user = this.authService.signup(email, password);
     session.userId = (await user).id;
     return user;
   }
@@ -42,6 +46,10 @@ export class UsersController {
     const user = await this.authService.signin(email, password);
     session.userId = user.id;
     return user;
+  }
+  @Post('signout')
+  signOut(@Session() session: any) {
+    session.userId = null;
   }
   @Get('/users')
   findUsers(@Query('email') email: string) {
