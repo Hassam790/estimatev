@@ -7,7 +7,7 @@ POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-    "email":"marvel1@example.com",
+    "email":"marvel2@example.com",
     "password":"123456"
 }
 ###Sign in
@@ -15,7 +15,7 @@ POST http://localhost:3000/auth/signin
 content-type: application/json
 
 {
-    "email":"marvel@example.com",
+    "email":"marvel2@example.com",
     "password":"123456"
 }
 ### Get users by Email
