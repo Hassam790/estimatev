@@ -3,6 +3,8 @@ import { Expose, Transform } from "class-transformer";
 
 export class Report {
     @Expose()
+    id: number;
+    @Expose()
     make: string;
     @Expose()
     modal: string;
@@ -13,6 +15,8 @@ export class Report {
     @Expose()
     price: number;
     @Expose()
-    @Transform(({obj}) => obj.user.id)
+    approved: boolean;
+    @Expose()
+    @Transform(({obj}) => obj.user?.id)
     userId: string;
 }

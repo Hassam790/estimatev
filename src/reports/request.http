@@ -8,3 +8,10 @@ content-type: application/json
     "mileage":15000,
     "price":20000
 }
+### Approve post
+PATCH http://localhost:3000/reports/1
+content-type: application/json
+
+{
+    "approved": true
+}
