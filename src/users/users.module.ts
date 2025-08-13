@@ -11,7 +11,7 @@ import { CurrentUserMiddleware } from 'src/middlewares/current-user.middleware';
   imports: [
     TypeOrmModule.forFeature([User]), // Import the User entity
   ],
-  providers: [UsersService, AuthService, {
+  providers: [UsersService, AuthService, CurrentUserMiddleware, {
     provide: APP_INTERCEPTOR,
     useClass: CurrentUserInterceptor, // Register the CurrentUserInterceptor globally
   }],

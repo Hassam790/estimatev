@@ -4,12 +4,16 @@ content-type: application/json
 {
     "make":"Toyota",
     "modal":"Corolla",
-    "year":2020,
-    "mileage":15000,
+    "year":2017,
+    "mileage":20000,
     "price":20000
 }
+
+### Estimate report
+GET http://localhost:3000/reports/estimate?make=Toyota&modal=Corolla&year=2020&mileage=15000
+content-type: application/json
 ### Approve post
-PATCH http://localhost:3000/reports/1
+PATCH http://localhost:3000/reports/9
 content-type: application/json
 
 {
